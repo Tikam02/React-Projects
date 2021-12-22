@@ -1,0 +1,128 @@
+
+The fetch() API method always takes in a compulsory argument, which is the path or URL to the resource you want to fetch. It returns a promise that points to the response from the request, whether the request is successful or not. You can also optionally pass in an init options object as the second argument.
+
+
+- The promise returned from a fetch() request will not reject when there’s an HTTP error, no matter the nature of the response status. Instead, it will resolve the request normally, if the response status code is a 400 or 500 type code, it’ll set the ok status. A request will only be rejected either because of network failure or if something is preventing the request from completing
+
+- fetch() will not allow the use of cross-site cookies i.e you cannot carry out a cross-site session using fetch()
+
+- fetch() will also not send cookies by default unless you set the credentials in the init option.
+
+
+
+PARAMETERS FOR THE FETCH API #
+
+- resource
+This is the path to the resource you want to fetch, this can either be a direct link to the resource path or a request object
+init
+This is an object containing any custom setting or credentials you’ll like to provide for your fetch() request. The following are a few of the possible options that can be contained in the init object:
+
+- method
+This is for specifying the HTTP request method e.g GET, POST, etc.
+headers
+This is for specifying any headers you would like to add to your request, usually contained in an object or an object literal.
+
+- body
+This is for specifying a body that you want to add to your request: this can be a Blob, BufferSource, FormData, URLSearchParams, USVString, or ReadableStream object
+
+- mode
+This is for specifying the mode you want to use for the request, e.g., cors, no-cors, or same-origin.
+credentials
+This for specifying the request credentials you want to use for the request, this option must be provided if you consider sending cookies automatically for the current domain.
+
+
+
+Basic FETCH syntax:
+
+fetch('https://api.github.com/users/hacktivist123/repos')
+  .then(response => response.json())
+  .then(data => console.log(data));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------Axios------------------
+
+
+
+Axios is an easy to use promise-based HTTP client for the browser and node.js. Since Axios is promise-based, we can take advantage of async and await for more readable and asynchronous code. With Axios, we get the ability to intercept and cancel request, it also has a built-in feature that provides client-side protection against cross-site request forgery.
+
+
+
+FEATURES OF AXIOS #
+Request and response interception
+Streamlined error handling
+Protection against XSRF
+Support for upload progress
+Response timeout
+The ability to cancel requests
+Support for older browsers
+Automatic JSON data transformation
+
+
+
+
+
+MAKING REQUESTS WITH AXIOS #
+
+
+// Make a GET request
+axios({
+  method: 'get',
+  url: 'https://api.github.com/users/hacktivist123',
+});
+
+// Make a Post Request
+axios({
+  method: 'post',
+  url: '/login',
+  data: {
+    firstName: 'shedrack',
+    lastName: 'akintayo'
+  }
+});
+
+
+
+
+Axios also provides a set of shorthand method for performing different HTTP requests. The Methods are as follows:
+
+axios.request(config)
+axios.get(url[, config])
+axios.delete(url[, config])
+axios.head(url[, config])
+axios.options(url[, config])
+axios.post(url[, data[, config]])
+axios.put(url[, data[, config]])
+axios.patch(url[, data[, config]])
+
+
+example :
+
+
+// Make a GET request with a shorthand method
+axios.get('https://api.github.com/users/hacktivist123');
+
+// Make a Post Request with a shorthand method
+axios.post('/signup', {
+    firstName: 'shedrack',
+    lastName: 'akintayo'
+});
+
+
+
+
+
+
+
