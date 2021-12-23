@@ -125,8 +125,4 @@ axios.post('/signup', {
 
 
 
-The e parameter of the function is an optional parameter of the input event handler which equals to a JavaScript Event object that contains information regarding what action or event just happened. When the handleUserInput() function is invoked, the action that occurs, like a change in the input field, is passed as the value of e. Then, the information about the action can be accessed, such as e.target.value, which would be the value of the text input element.
-
-
-
 
