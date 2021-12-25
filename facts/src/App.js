@@ -1,127 +1,39 @@
-import React, {useState,useEffect, createFactory} from 'react';
+import React, {useState,useEffect} from 'react';
+import { Redirect } from 'react-router';
 import  Axios  from 'axios';
 import './App.css';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, Routes,useNavigate} from 'react-router-dom';
+import {Link, Outlet} from 'react-router-dom';
 
-// axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
 
-
-
+import Facts from './components/facts';
+import Anime from './components/Anime/anime';
+import Quotes from './components/Quotes/Quotes';
+import Home from './components/Home/home';
 
 
 function App() {
-  // const [loading, setLoading] = useState(true);
-  const [facts, setFacts] = useState([]);
-  const [catf, setCatf] = useState([]);
-  const [qoutes, setQoutes] = useState([]);
-  const [rsqoutes, setRSQoutes] = useState([]);
-  const [anqoutes, setAnQoutes] = useState([]);
-
-
-
-
-var url = `https://uselessfacts.jsph.pl/random.json?language=en`;
-var curl = `https://catfact.ninja/fact`;
-var qurl = `https://api.quotable.io/random`;
-var rsurl =  `https://ron-swanson-quotes.herokuapp.com/v2/quotes`;
-var aurl = `https://animechan.vercel.app/api/random`;
-
-
-
-
-// fetch the data
-
-const getFacts = async () => {
-  const {data} = await Axios.get(url);
-  setFacts(data);
-};
-
-const getCatFacts = async () => {
-  const {data} = await Axios.get(curl);
-  setCatf(data);
-}
-
-const getQoutes = async () => {
-  const {data} = await Axios.get(qurl);
-  setQoutes(data);
-}
-
-const getRSQoutes = async () => {
-  const {data} = await axios.get(rsurl);
-  setRSQoutes(data);
-}
-
-
-
-const getAnimeQoutes = async () => {
-  const {data} = await axios.get(aurl);
-  setAnQoutes(data);
-}
-
-
-// Trigger the getFacts after the initial render by using the useEffect hook
-useEffect( () => {
-  getFacts();
-  getCatFacts();
-  getQoutes();
-  getRSQoutes();
-  getAnimeQoutes();
-},[]);
-
-
-
-
-
 
   return (
     <div className="App">
- 
-
-<div className='contents'>
 
 
-<div className='cards'>
-<h1 className='header'>Random facts</h1>
- <p className='texts' >{facts.text}</p>
-</div>
+
+<Router>
+        <Routes>
+        <Route path="/" element={<Home/>}></Route>
+          <Route path="/anime" element={<Anime/>}></Route>
+          <Route path="/facts" element={<Facts/>} ></Route>
+          <Route path="/quotes" element={<Quotes/>} ></Route>
+        </Routes>
+      </Router>
 
 
-<div className='cat_card'>
-<h1 className='header'>Cat Facts</h1>
-<p className='texts' >{catf.fact}</p>
-</div>
 
-
-<div className='rq_card'>
-
-
-<h1 className='header'>Random Quotes</h1>
-<p className='texts' >{qoutes.content}</p>
-<h4 className='author'>Author : {qoutes.author}</h4>
 
 </div>
 
-<div className='rs_card'>
-
-
-<h1 className='header'>Ron Swanon Quotes</h1>
-<p className='texts' >{rsqoutes}</p>
-
-</div>
-
-<div className='anime_card'>
-
-<h1 className='header'>Anime Quotes</h1>
-<p className='texts' >{anqoutes.quote}</p>
-<h4 className='source'>Anime : {anqoutes.anime}</h4>
-<h4>character: {anqoutes.character}</h4>
-</div>
-    
-
-</div>
-
-    
-</div>
 
 
   );
