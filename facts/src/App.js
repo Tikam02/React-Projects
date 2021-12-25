@@ -1,7 +1,9 @@
 import React, {useState,useEffect, createFactory} from 'react';
 import  Axios  from 'axios';
 import './App.css';
+import axios from 'axios';
 
+// axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
 
 
 
@@ -12,11 +14,19 @@ function App() {
   const [facts, setFacts] = useState([]);
   const [catf, setCatf] = useState([]);
   const [qoutes, setQoutes] = useState([]);
+  const [rsqoutes, setRSQoutes] = useState([]);
+  const [anqoutes, setAnQoutes] = useState([]);
+
+
 
 
 var url = `https://uselessfacts.jsph.pl/random.json?language=en`;
-var curl = `https://catfact.ninja/fact`
+var curl = `https://catfact.ninja/fact`;
 var qurl = `https://api.quotable.io/random`;
+var rsurl =  `https://ron-swanson-quotes.herokuapp.com/v2/quotes`;
+var aurl = `https://animechan.vercel.app/api/random`;
+
+
 
 
 // fetch the data
@@ -36,11 +46,26 @@ const getQoutes = async () => {
   setQoutes(data);
 }
 
+const getRSQoutes = async () => {
+  const {data} = await axios.get(rsurl);
+  setRSQoutes(data);
+}
+
+
+
+const getAnimeQoutes = async () => {
+  const {data} = await axios.get(aurl);
+  setAnQoutes(data);
+}
+
+
 // Trigger the getFacts after the initial render by using the useEffect hook
 useEffect( () => {
   getFacts();
   getCatFacts();
   getQoutes();
+  getRSQoutes();
+  getAnimeQoutes();
 },[]);
 
 
@@ -52,20 +77,53 @@ useEffect( () => {
     <div className="App">
  
 
-<h1>Random facts</h1>
- <p >{facts.text}</p>
+<div className='contents'>
 
 
-<h1>Cat Facts</h1>
-<p>{catf.fact}</p>
+<div className='cards'>
+<h1 className='header'>Random facts</h1>
+ <p className='texts' >{facts.text}</p>
+</div>
 
-<h1>Random Qoutes</h1>
-<p>{qoutes.content}</p>
 
-<h1>Random jokes</h1>
-{/* <p>{catf.fact}</p> */}
+<div className='cat_card'>
+<h1 className='header'>Cat Facts</h1>
+<p className='texts' >{catf.fact}</p>
+</div>
 
-    </div>
+
+<div className='rq_card'>
+
+
+<h1 className='header'>Random Quotes</h1>
+<p className='texts' >{qoutes.content}</p>
+<h4 className='author'>Author : {qoutes.author}</h4>
+
+</div>
+
+<div className='rs_card'>
+
+
+<h1 className='header'>Ron Swanon Quotes</h1>
+<p className='texts' >{rsqoutes}</p>
+
+</div>
+
+<div className='anime_card'>
+
+<h1 className='header'>Anime Quotes</h1>
+<p className='texts' >{anqoutes.quote}</p>
+<h4 className='source'>Anime : {anqoutes.anime}</h4>
+<h4>character: {anqoutes.character}</h4>
+</div>
+    
+
+</div>
+
+    
+</div>
+
+
   );
 }
 
